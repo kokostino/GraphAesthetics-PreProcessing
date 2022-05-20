@@ -3,6 +3,12 @@
 
 The goal of this project is to pre-process the graph data for a GNN, which learns aesthetics. The node feature inputs are downsized feature-vectors of pre-trained CNNs, computer vision metrics as well as colour information.
 
+Current status:
+<br />
+  
+  <img src="https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/dag.png" width="200" />
+
+
 
  ### 1. Colour
   Colour is crucial for aesthetics but the colour information needs to be aggregated to reflect its permutation invariance.
