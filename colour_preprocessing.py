@@ -63,5 +63,4 @@ def get_colour_names_of_all_images(path, folder, dict_file, n_clstrs):
 # -------------------------------------------------------
 
 
-#get_colour_names_of_all_images('/Users/herscdan/Documents/PRIVATE/GitHub/GraphAesthetics-PreProcessing/', 'investigating-aesthetics/', 'colourNames.csv', n_clstrs=20)
 
