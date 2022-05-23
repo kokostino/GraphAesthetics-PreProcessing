@@ -10,23 +10,26 @@ from dim_reduce import get_reduced_features
 
 # ------- set function variables -----------
 
+path = "/GitHub/GraphAesthetics-PreProcessing/"
+folder = "investigating-aesthetics/"
+
 def colour_values():
     return {
-        "path": "/GitHub/GraphAesthetics-PreProcessing/",
-        "folder": "investigating-aesthetics/",
+        "path": path,
+        "folder": folder + "/",
         "dict_file": "colourNames.csv",
         "n_clstrs": 20
     }
 
 def feature_extraction_values():
     return {
-        'folder': '/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics'
+        'folder': path + folder
     }
 
 def pca_values():
     return {
             'zahl': 20,
-            'metafolder': "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics_metadata",
+            'metafolder': path + folder + "_metadata",
             'file': "feature_vectors.csv"
     }
 # -----------------------------------------------------
