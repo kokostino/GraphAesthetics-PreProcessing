@@ -6,9 +6,9 @@ from torchvision import datasets, transforms, models
 from torch.autograd import Variable
 from PIL import Image
 import os
+import csv
 
 ## model = models.resnet18(pretrained=True)
-
 
 def feature_vector_resnet18(model, img_path):
   img=Image.open(img_path)
@@ -21,14 +21,24 @@ def feature_vector_resnet18(model, img_path):
   
   new_model = nn.Sequential(*list(model.children())[:-1])
   
-  return new_model(t_img).detach().numpy().reshape(-1)
+  fv = [img_path.rsplit('/')[-1]]
+  fv.extend(list(new_model(t_img).detach().numpy().reshape(-1)))
+  return fv
 
 def feature_vectors_of_folder(folder):
-  print('starting')
+  
   model = models.resnet18(pretrained=True)
+  
+  if not os.path.exists(folder + "_metadata"):
+    os.makedirs(folder + "_metadata")
+  else:
+    print('metadata folder exists')
+    
   cl=[]
   for image in os.listdir(folder):
-    print(image)
-    cl.append([image, feature_vector_resnet18(model, folder + "/" + image)])
-  print(cl)
-  
+    cl.append(feature_vector_resnet18(model, folder + "/" + image))  
+    
+  with open(folder + "_metadata/feature_vectors.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerows(cl)
+
