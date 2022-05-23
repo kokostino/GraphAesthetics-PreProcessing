@@ -6,7 +6,7 @@ The goal of this project is to pre-process the graph data for a GNN, which learn
 Current status:
 <br />
   
-  <img src="https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/dag.png" width="200" />
+  <img src="https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/dag.png" width="300" />
 
 
 
