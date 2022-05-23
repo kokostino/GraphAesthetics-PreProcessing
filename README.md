@@ -6,15 +6,15 @@ The goal of this project is to pre-process the graph data for a GNN, which learn
 Current status:
 <br />
   
-  <img src="https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/dag.png" width="200" />
+  <img src="https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/dag.png" width="300" />
 
 
 
  ### 1. Colour
   Colour is crucial for aesthetics but the colour information needs to be aggregated to reflect its permutation invariance.
-  We calculate the 20 dominant image colours, and translate the respective colour information to colour names and one-hot-encoded.
+  We calculate the 20 dominant image colours with KMeans, and translate the respective colour information to colour names and one-hot-encoded.
   The colour to name mapping uses data from xkcd [here](https://xkcd.com/color/rgb/) and [here](https://xkcd.com/color/satfaces.txt) and from the
-  [webcolors package](https://github.com/ubernostrum/webcolors). The final mapping an be found in [this repository](https://github.com/kokostino/Map-RGB-to-Color-Name).
+  [webcolors package](https://github.com/ubernostrum/webcolors). The final mapping an be found [in this file](https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/colourNames.csv).
   
   ### 2. CNN Feature Vector Information
-  The final layer of a pre-trained CNN is used to derive content information which we can add to the nodes.
+  The final layer of a pre-trained CNN is used to derive content information in the form of feature vectors.
