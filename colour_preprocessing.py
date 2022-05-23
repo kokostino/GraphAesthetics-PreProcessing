@@ -49,7 +49,7 @@ def get_dict(filename) :
         return {rows[0]:rows[1] for rows in reader}
 
 def get_colour_names_of_all_images(path, folder, dict_file, n_clstrs):
-    dictionary=get_dict(dict_file)
+    dictionary=get_dict(path + dict_file)
     list_names=get_image_paths(path, folder)
     aa=find_dominant_colours(list_names, n_clstrs)
     for rgb in aa:

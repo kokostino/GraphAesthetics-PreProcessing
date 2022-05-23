@@ -5,6 +5,7 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 
 from colour_preprocessing import get_colour_names_of_all_images
+from feature_extraction import feature_vectors_of_folder
 
 
 def colour_values():
@@ -41,6 +42,14 @@ with DAG(
         task_id="extract_colour_info",
         python_callable=get_colour_names_of_all_images,
         op_kwargs=colour_values_task.output
+    )
+
+    extract_feature_vectors = PythonOperator(
+        task_id="extract_feature_vectors",
+        python_callable=feature_vectors_of_folder,
+        op_kwargs={
+            'folder': '/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics'
+    }
     )
 
 
