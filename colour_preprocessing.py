@@ -50,17 +50,18 @@ def get_dict(filename) :
 
 def get_colour_names_of_all_images(path, folder, dict_file, n_clstrs):
     dictionary=get_dict(path + dict_file)
-    list_names=get_image_paths(path, folder)
+    list_names=get_image_paths(path, folder+"/")
     aa=find_dominant_colours(list_names, n_clstrs)
+    clr=[]
     for rgb in aa:
-        cl=[]
-        print(rgb[0])
+        cl=[rgb[0].rsplit('/')[-1]]
         for l in range(1,n_clstrs):
             cl.append(get_name_of_nearest_colour(dictionary, rgb[1][l]))
-        print(set(cl))
-
+        clr.append(cl)
+    print(clr)   
+    with open(folder + "_metadata/colours.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(clr)
 
 # -------------------------------------------------------
-
-
 

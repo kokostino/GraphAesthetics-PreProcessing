@@ -28,11 +28,7 @@ def feature_vector_resnet18(model, img_path):
 def feature_vectors_of_folder(folder):
   
   model = models.resnet18(pretrained=True)
-  
-  if not os.path.exists(folder + "_metadata"):
-    os.makedirs(folder + "_metadata")
-  else:
-    print('metadata folder exists')
+
     
   cl=[]
   for image in os.listdir(folder):

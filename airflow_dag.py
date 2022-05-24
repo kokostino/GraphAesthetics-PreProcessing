@@ -8,15 +8,17 @@ from colour_preprocessing import get_colour_names_of_all_images
 from feature_extraction import feature_vectors_of_folder
 from dim_reduce import get_reduced_features
 
+import os
+
 # ------- set function variables -----------
 
 path = "/GitHub/GraphAesthetics-PreProcessing/"
-folder = "investigating-aesthetics/"
+folder = "investigating-aesthetics"
 
 def colour_values():
     return {
         "path": path,
-        "folder": folder + "/",
+        "folder": folder,
         "dict_file": "colourNames.csv",
         "n_clstrs": 20
     }
@@ -32,6 +34,15 @@ def pca_values():
             'metafolder': path + folder + "_metadata",
             'file': "feature_vectors.csv"
     }
+
+# ----------------- make folder ----------------------
+
+def make_metadata_folder():
+    if not os.path.exists(path + folder + "_metadata"):
+        os.makedirs(path + folder + "_metadata")
+    else:
+        print('metadata folder exists')
+
 # -----------------------------------------------------
 
 default_args = {
@@ -52,6 +63,11 @@ with DAG(
     description='Image PreProcessing',
     schedule_interval=timedelta(days=1)
 ) as dag:
+
+    mkdir_metadata = PythonOperator(
+        task_id="mkdir_metadata",
+        python_callable=make_metadata_folder
+    )
 
     colour_values_task = PythonOperator(
         task_id="colour_values",
@@ -87,7 +103,7 @@ with DAG(
     )
 
 
-    colour_values_task>>extract_colour_info
-    fv_values_task>>extract_feature_vectors>>reduce_task>>reduce_feature_vectors
+    mkdir_metadata>>colour_values_task>>extract_colour_info
+    mkdir_metadata>>fv_values_task>>extract_feature_vectors>>reduce_task>>reduce_feature_vectors
 
 # -----------------------------------------------------
