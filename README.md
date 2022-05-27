@@ -21,8 +21,8 @@ Current status:
 ---
 
   ### 2. Content Info
-  #### 2.2 Extract Feature Vectors
+  #### 2.1 Extract Feature Vectors
   The final layer of a pre-trained CNN is used to derive content information in the form of feature vectors.
   
-  #### 2.3 Reduce Feature Vectors
+  #### 2.2 Reduce Feature Vectors
   The size of the feature vectors is reduced with PCA
