@@ -4,7 +4,8 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 
-from colour_preprocessing import get_colour_names_of_all_images
+from colour_preprocessing import find_dominant_colours
+from colour_name_mapping import get_colour_names_of_all_images
 from feature_extraction import feature_vectors_of_folder
 from dim_reduce import get_reduced_features
 
@@ -76,6 +77,12 @@ with DAG(
 
     extract_colour_info = PythonOperator(
         task_id="extract_colour_info",
+        python_callable=find_dominant_colours,
+        op_kwargs=colour_values_task.output
+    )
+
+    extract_colour_names = PythonOperator(
+        task_id="extract_colour_names",
         python_callable=get_colour_names_of_all_images,
         op_kwargs=colour_values_task.output
     )
@@ -103,7 +110,7 @@ with DAG(
     )
 
 
-    mkdir_metadata>>colour_values_task>>extract_colour_info
+    mkdir_metadata>>colour_values_task>>extract_colour_info>>extract_colour_names
     mkdir_metadata>>fv_values_task>>extract_feature_vectors>>reduce_task>>reduce_feature_vectors
 
 # -----------------------------------------------------

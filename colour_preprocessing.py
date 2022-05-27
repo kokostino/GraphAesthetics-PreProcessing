@@ -24,44 +24,23 @@ def preprocess_list_of_images(list_of_paths):
   images = [cv2.cvtColor(image, cv2.COLOR_BGR2RGB) for image in images]
   return [image.reshape((image.shape[0] * image.shape[1], 3)) for image in images]
 
-def find_dominant_colours(list_of_paths, n_clstrs): 
+def find_dominant_colours(path, folder, n_clstrs): 
+  list_of_paths=get_image_paths(path, folder+"/")
   images = preprocess_list_of_images(list_of_paths)
   dom=[]
   for i in range(0,len(images)):
       cltr = KMeans(n_clusters = n_clstrs)
-      dom.append((list_of_paths[i], np.rint(cltr.fit(images[i]).cluster_centers_).astype(int)))
-  return dom
-
-def get_name_of_nearest_colour(dictionary, rgb):
-    names = []
-    rgb_values = []
-    for color_name, color_rgb in dictionary.items():
-        names.append(color_name)
-        rgb_values.append(ast.literal_eval(color_rgb))
-  
-    kdt_db = KDTree(rgb_values)
-    distance, index = kdt_db.query(tuple(rgb))
-    return names[index]
-
-def get_dict(filename) :       
-    with open(filename, mode='r') as infile:
-        reader = csv.reader(infile)
-        return {rows[0]:rows[1] for rows in reader}
-
-def get_colour_names_of_all_images(path, folder, dict_file, n_clstrs):
-    dictionary=get_dict(path + dict_file)
-    list_names=get_image_paths(path, folder+"/")
-    aa=find_dominant_colours(list_names, n_clstrs)
-    clr=[]
-    for rgb in aa:
-        cl=[rgb[0].rsplit('/')[-1]]
-        for l in range(1,n_clstrs):
-            cl.append(get_name_of_nearest_colour(dictionary, rgb[1][l]))
-        clr.append(cl)
-    print(clr)   
-    with open(folder + "_metadata/colours.csv", "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerows(clr)
+      dan = [list_of_paths[i]]
+      rgb = np.rint(cltr.fit(images[i]).cluster_centers_).astype(int).tolist()
+      dan.extend(rgb)
+      dom.append(dan)
+  clms=['color'+str(i) for i in range(0,n_clstrs)]
+  with open(folder + "_metadata/colour_rgb.csv", "w", newline="") as f:
+            header = ['ImgName']
+            header.extend(clms)
+            writer = csv.writer(f)
+            writer.writerow(header)
+            writer.writerows(dom)
 
 # -------------------------------------------------------
 
