@@ -1,13 +1,11 @@
 # ------- IMPORT --------------
 
 from sklearn.cluster import KMeans
-from scipy.spatial import KDTree
 import numpy as np
 import cv2
 import glob
 import os
 import csv
-import ast
 
     
 # ------- FUNCTIONS --------------
