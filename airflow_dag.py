@@ -6,6 +6,7 @@ from airflow.utils.dates import days_ago
 
 from colour_preprocessing import find_dominant_colours
 from colour_name_mapping import get_colour_names_of_all_images
+from nearest_neighbours import get_nearest_neighbours
 from feature_extraction import feature_vectors_of_folder
 from dim_reduce import get_reduced_features
 
@@ -87,6 +88,12 @@ with DAG(
         op_kwargs=colour_values_task.output
     )
 
+    nearest_colour_neighbours = PythonOperator(
+        task_id="nearest_colour_neighbours",
+        python_callable=get_nearest_neighbours,
+        op_kwargs=colour_values_task.output
+    )
+
     fv_values_task = PythonOperator(
         task_id="fv_values",
         python_callable=feature_extraction_values
@@ -110,7 +117,7 @@ with DAG(
     )
 
 
-    mkdir_metadata>>colour_values_task>>extract_colour_info>>extract_colour_names
+    mkdir_metadata>>colour_values_task>>extract_colour_info>>extract_colour_names>>nearest_colour_neighbours
     mkdir_metadata>>fv_values_task>>extract_feature_vectors>>reduce_task>>reduce_feature_vectors
 
 # -----------------------------------------------------
