@@ -10,13 +10,19 @@ Current status:
 
 
 
- ### 1. Extract Colour Info
+ ### 1. Colour Info
   Colour is crucial for aesthetics but the colour information needs to be aggregated to reflect its permutation invariance.
+  #### 1.1 Extract Colour Info
   We calculate the 20 dominant image colours with KMeans, and translate the respective colour information to colour names and one-hot-encoded.
+  #### 1.2 Extract Colour Names
   The colour to name mapping uses data from xkcd [here](https://xkcd.com/color/rgb/) and [here](https://xkcd.com/color/satfaces.txt) and from the
   [webcolors package](https://github.com/ubernostrum/webcolors). The final mapping an be found [in this file](https://github.com/kokostino/GraphAesthetics-PreProcessing/blob/main/colourNames.csv).
-  
-  ### 2. Extract Feature Vectors
+
+---
+
+  ### 2. Content Info
+  #### 2.1 Extract Feature Vectors
   The final layer of a pre-trained CNN is used to derive content information in the form of feature vectors.
   
-  ### 3. Reduce Feature Vectors
+  #### 2.2 Reduce Feature Vectors
+  The size of the feature vectors is reduced with PCA
