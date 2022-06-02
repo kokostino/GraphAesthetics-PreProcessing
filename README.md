@@ -26,3 +26,16 @@ Current status:
   
   #### 2.2 Reduce Feature Vectors
   The size of the feature vectors is reduced with PCA
+
+---
+
+  ### 3. Find Nearest Neighbour and Cluster
+  
+  Nearest neighbour search of visual embeddings as well as clustering of colours already gives decent results in finding aesthetic combinations. Those techniques are applied to the data for trainings data pre-selection. This simplifies link labeling tremendously.
+  
+  #### 3.1 Nearest Neighbours
+  #### 3.2 Clustering
+  
+  ---
+  
+  ### 4. Labelling
