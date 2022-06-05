@@ -126,12 +126,13 @@ def get_combis_list(liste):
     return combis
 
 
-path = "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics/"
-
-file_list = os.listdir(path)
-
-annotations = annotate(
-  get_combis_list(file_list),
-  options=['0', '1'], shuffle=True,
-  display_fn=lambda filename: display(Image(filename))
-)
+if __name__ == '__main__':
+    path = "/GitHub/GraphAesthetics-PreProcessing/investigating-aesthetics/"
+    
+    file_list = os.listdir(path)
+    
+    annotations = annotate(
+      get_combis_list(file_list),
+      options=['0', '1'], shuffle=True,
+      display_fn=lambda filename: display(Image(filename))
+    )
