@@ -63,6 +63,7 @@ def annotate(examples,
 
     def add_annotation(annotation):
         annotations.append((examples[current_index][0], examples[current_index][1], annotation))
+        annotations.append((examples[current_index][1], examples[current_index][0], annotation))
         show_next()
 
     def skip(btn):
