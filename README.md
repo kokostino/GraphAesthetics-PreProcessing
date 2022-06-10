@@ -1,7 +1,7 @@
 # GraphAesthetics Pre-processing
 ---
 
-The goal of this project is to preprocess the graph data for [a GNN, which learns aesthetics](https://github.com/kokostino/GraphAesthetics). The node feature inputs are downsized feature-vectors of pre-trained CNNs, computer vision metrics as well as colour information.
+The goal of this project is to preprocess image data to train [a GNN, which learns aesthetics](https://github.com/kokostino/GraphAesthetics). The node feature inputs are downsized feature-vectors of pre-trained CNNs, computer vision metrics as well as colour information.
 
 Current status:
 <br />
