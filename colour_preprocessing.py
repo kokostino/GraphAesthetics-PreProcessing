@@ -28,7 +28,7 @@ def find_dominant_colours(path, folder, n_clstrs):
   dom=[]
   for i in range(0,len(images)):
       cltr = KMeans(n_clusters = n_clstrs)
-      dan = [list_of_paths[i]]
+      dan = [list_of_paths[i].rsplit('/')[-1]]
       rgb = np.rint(cltr.fit(images[i]).cluster_centers_).astype(int).tolist()
       dan.extend(rgb)
       dom.append(dan)

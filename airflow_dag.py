@@ -9,6 +9,7 @@ from colour_name_mapping import get_colour_names_of_all_images
 from nearest_neighbours import get_nearest_neighbours
 from feature_extraction import feature_vectors_of_folder
 from dim_reduce import get_reduced_features
+from cv_measures import computer_vision_measures
 
 import os
 
@@ -82,6 +83,12 @@ with DAG(
         op_kwargs=colour_values_task.output
     )
 
+    computer_vision_measures = PythonOperator(
+        task_id="computer_vision_measures",
+        python_callable=computer_vision_measures,
+        op_kwargs=colour_values_task.output
+    )
+
     extract_colour_names = PythonOperator(
         task_id="extract_colour_names",
         python_callable=get_colour_names_of_all_images,
@@ -118,6 +125,7 @@ with DAG(
 
 
     mkdir_metadata>>colour_values_task>>extract_colour_info>>extract_colour_names>>nearest_colour_neighbours
+    colour_values_task>>computer_vision_measures
     mkdir_metadata>>fv_values_task>>extract_feature_vectors>>reduce_task>>reduce_feature_vectors
 
 # -----------------------------------------------------
